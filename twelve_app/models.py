@@ -7,4 +7,5 @@ class Manufacturer(models.Model):
 class Item(models.Model):
     name = models.CharField()
     price = models.DecimalField(max_digits=10,decimal_places=2)
+    quantity = models.IntegerField()
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)

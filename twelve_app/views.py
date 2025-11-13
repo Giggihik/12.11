@@ -1,18 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from .models import Item, Manufacturer
 
-from django.db.models import Sum
+from django.db.models import Sum, Avg, F, Min
 
 def get_items(request):
     items = (
         Item
         .objects
-        .all()
+        .filter(manufacturer__name= 'Рога и Копыта')
+        .aggregate(
+            price_sum_min=Min(F('price') * F('quantity')), 
+        )
     )
-
-
-    context = {
-        'items': items
-    }
+    min_sum = items['price_sum_min']
     
-    return render(request, 'items-catalog.html', context)
+    context = {
+        'min_sum': min_sum 
+        }
+            
+    return render(request, "items-catalog.html", context)
