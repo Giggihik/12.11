@@ -3,4 +3,6 @@ from .models import *
 
 admin.site.register(Manufacturer)
 admin.site.register(Item)
-
+admin.site.register(Author)
+admin.site.register(Publisher)
+admin.site.register(Book)
